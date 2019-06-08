@@ -16,10 +16,6 @@ class PeopleContextProvider extends Component {
     ],
     homeworld: {},
     searchValue: "",
-    searchingStatus: {
-      marginLeft: "10px",
-      display: "none"
-    },
     homeWorldDataLoadingStatus: {
         display: "none",
         marginTop: "10px"
@@ -95,12 +91,8 @@ class PeopleContextProvider extends Component {
   } // eslint-disable-line no-unused-vars
 
   filterPeopleByName = name => {
-    // Show a searching status on the screen
+    // re-initialize homeworld state.
     this.setState({
-      searchingStatus: {
-        marginLeft: "10px",
-        display: "block"
-      },
       homeworld: {}
     });
     // Properly trim incoming data from the imputBox to remove white space
@@ -116,13 +108,6 @@ class PeopleContextProvider extends Component {
           people: result 
         });
       }
-      // Hide searching status Ounce our check is complete 
-      this.setState({
-        searchingStatus: {
-          marginLeft: "10px",
-          display: "none"
-        }
-      });
     });
   }; // eslint-disable-line no-unused-vars
 
