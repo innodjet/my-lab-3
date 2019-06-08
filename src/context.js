@@ -31,7 +31,7 @@ class PeopleContextProvider extends Component {
 
   componentWillMount() {
     this.getPeoplesData();
-  }
+  };
 
   getPeoplesData = async () => {
     this.setState({
@@ -44,9 +44,10 @@ class PeopleContextProvider extends Component {
         display: "none"
       }
     });
+    
     const rep = await fetch('https://swapi.co/api/people');
     const data = await rep.json();
-    const result =  data.results.map( (el) => {
+    let result =  data.results.map( (el) => {
       return {  name: el.name , 
                 height: el.height,
                 mass: el.mass,
@@ -54,6 +55,29 @@ class PeopleContextProvider extends Component {
                 homeworld: el.homeworld
               };
     });
+    // We have count which is the tital number of result for the API
+    // We know that the API return 10 result per request then 
+    // let's calculate the number of page we have in total
+    const totalPage = (parseInt(data.count%10)) === 0 ? parseInt(data.count/10):(parseInt(data.count/10)) + 1;
+    let nextUrl = data.next;
+    if ( nextUrl !== null ) {
+      for ( let i=1; i <= totalPage; i++ ) {
+        if ( nextUrl !== null ) {
+          const rep1 = await fetch(nextUrl);
+          const data1 = await rep1.json();
+          const result1 =  data1.results.map( (el) => {
+            return {  name: el.name , 
+                      height: el.height,
+                      mass: el.mass,
+                      gender: el.gender,
+                      homeworld: el.homeworld
+                    };
+          });
+          nextUrl = data1.next;
+          result = [ ...result, ...result1 ];
+        }
+      }
+    }
     this.setState({
       people: result,
       peopleListDataLoadingStatus: {
