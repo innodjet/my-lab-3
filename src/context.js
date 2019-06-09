@@ -44,7 +44,6 @@ class PeopleContextProvider extends Component {
         display: "none"
       }
     });
-    
     const rep = await fetch('https://swapi.co/api/people');
     const data = await rep.json();
     let result =  data.results.map( (el) => {
