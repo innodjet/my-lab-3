@@ -61,8 +61,7 @@ class PeopleContextProvider extends Component {
     // let 's grab the next page URL to perform a new API call to get the data
     let nextUrl = data.next;
     if ( nextUrl !== null ) {
-      for ( let i=1; i <= totalPage; i++ ) {
-        if ( nextUrl !== null ) {
+      for ( let i=1; i < totalPage; i++ ) {
           const rep1 = await fetch(nextUrl);
           const data1 = await rep1.json();
           const result1 =  data1.results.map( (el) => {
@@ -75,7 +74,6 @@ class PeopleContextProvider extends Component {
           });
           nextUrl = data1.next;
           result = [ ...result, ...result1 ];
-        }
       }
     }
     this.setState({
