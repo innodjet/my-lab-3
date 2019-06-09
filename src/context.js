@@ -56,10 +56,10 @@ class PeopleContextProvider extends Component {
               };
     });
     // We have count which is the total number of result for the API
-    // We know that the API return 10 result per request then 
+    // We know that the API return 10 result per request 
     // let's calculate the number of page we have in total
     const totalPage = (parseInt(data.count%10)) === 0 ? parseInt(data.count/10):(parseInt(data.count/10)) + 1;
-    // let 's grab the next page URL to perform a next API call to get the data
+    // let 's grab the next page URL to perform a new API call to get the data
     let nextUrl = data.next;
     if ( nextUrl !== null ) {
       for ( let i=1; i <= totalPage; i++ ) {
