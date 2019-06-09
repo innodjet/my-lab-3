@@ -3,7 +3,7 @@ import PeopleContext from "../context";
 
 const  inputStyle = {
   width: "100%",
-  height: "45px",
+  height: "47px",
   border: "1px #000000 solid",
   padding: "10px"
 }
