@@ -1,1 +1,0 @@
-# NIK DJETELI
