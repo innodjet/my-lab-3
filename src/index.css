@@ -41,7 +41,7 @@ button {
   justify-content: center;
   align-items: center;
   height: 48px;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  /* border-bottom: 1px solid rgba(0, 0, 0, 0.2); */
 }
 
 .people-list {
