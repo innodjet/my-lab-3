@@ -55,6 +55,18 @@ class PeopleContextProvider extends Component {
                 homeworld: el.homeworld
               };
     });
+    // Load this result first
+    this.setState({
+      people: result,
+      peopleCp: result,
+      peopleListDataLoadingStatus: {
+        display: "none",
+        marginTop: "10px"
+      },
+      isPeopleListDataReady: { 
+        display: "block"
+      }
+    });
     let numberOfResults = data.results.length;
     // We have count which is the total number of result for the API
     // We know that the API return 10 result per request 
@@ -80,6 +92,7 @@ class PeopleContextProvider extends Component {
           result = [ ...result, ...result1 ];
       }
     }
+    // Load the total data ounce it is ready
     this.setState({
       people: result,
       peopleCp: result,
