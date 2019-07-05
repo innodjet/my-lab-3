@@ -14,6 +14,7 @@ class PeopleContextProvider extends Component {
         homeworld: "https://swapi.co/api/planets/1/"
       }
     ],
+    peopleCp: [], // keep initial people data on initial fetch 
     homeworld: {},
     searchValue: "",
     homeWorldDataLoadingStatus: {
@@ -78,6 +79,7 @@ class PeopleContextProvider extends Component {
     }
     this.setState({
       people: result,
+      peopleCp: result,
       peopleListDataLoadingStatus: {
         display: "none",
         marginTop: "10px"
@@ -119,18 +121,23 @@ class PeopleContextProvider extends Component {
     });
     // Properly trim incoming data from the imputBox to remove white space
     const inName = name.split(' ').join('');
-    const result = this.state.people.filter( (el) => {
+    const result = this.state.peopleCp.filter( (el) => {
       const outName = el.name.split(' ').join('');
-      return inName.toLocaleLowerCase() === outName.toLocaleLowerCase();
+      return inName.toLocaleLowerCase() === outName.toLocaleLowerCase() || 
+             el.name.toLocaleLowerCase().indexOf(name.toLocaleLowerCase()) !== -1;
     });    
-    // Get a new fresh data before checking the result of our match operation
-    this.getPeoplesData().then ( () => {
-      if ( result.length !== 0 ) { // This means we find a matching element
-        this.setState({
-          people: result 
-        });
-      }
-    });
+    // This means we find a matching element
+    if ( result.length !== 0 ) { 
+      this.setState({
+        people: result 
+      });
+    }
+    // Reload our initial data 
+    if ( name === '' ) {
+      this.setState({
+        people: this.state.peopleCp 
+      });
+    }
   }; // eslint-disable-line no-unused-vars
 
   // Handle input changes in the form. 
