@@ -55,7 +55,7 @@ class PeopleContextProvider extends Component {
                 homeworld: el.homeworld
               };
     });
-    // Load this result first
+    // Load this first result
     this.setState({
       people: result,
       peopleCp: result,
@@ -78,32 +78,32 @@ class PeopleContextProvider extends Component {
     let nextUrl = data.next;
     if ( nextUrl !== null ) {
       for ( let i=1; i < totalPage; i++ ) {
-          const rep1 = await fetch(nextUrl);
-          const data1 = await rep1.json();
-          const result1 =  data1.results.map( (el) => {
-            return {  name: el.name , 
-                      height: el.height,
-                      mass: el.mass,
-                      gender: el.gender,
-                      homeworld: el.homeworld
-                    };
-          });
-          nextUrl = data1.next;
-          result = [ ...result, ...result1 ];
+        const rep1 = await fetch(nextUrl);
+        const data1 = await rep1.json();
+        const result1 =  data1.results.map( (el) => {
+          return {  name: el.name , 
+                    height: el.height,
+                    mass: el.mass,
+                    gender: el.gender,
+                    homeworld: el.homeworld
+                  };
+        });
+        nextUrl = data1.next;
+        result = [ ...result, ...result1 ];
+        // Load the result data ounce ready
+        this.setState({
+          people: result,
+          peopleCp: result,
+          peopleListDataLoadingStatus: {
+            display: "none",
+            marginTop: "10px"
+          },
+          isPeopleListDataReady: { 
+            display: "block"
+          }
+        });
       }
     }
-    // Load the total data ounce it is ready
-    this.setState({
-      people: result,
-      peopleCp: result,
-      peopleListDataLoadingStatus: {
-        display: "none",
-        marginTop: "10px"
-      },
-      isPeopleListDataReady: { 
-        display: "block"
-      }
-    });
   }
 
   getHomeWorldForUser = async url => {
