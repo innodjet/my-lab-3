@@ -14,7 +14,7 @@ class PeopleContextProvider extends Component {
         homeworld: "https://swapi.co/api/planets/1/"
       }
     ],
-    peopleCp: [], // keep initial people data on initial fetch 
+    peopleCp: [], // keep initial people data on load
     homeworld: {},
     searchValue: "",
     homeWorldDataLoadingStatus: {
